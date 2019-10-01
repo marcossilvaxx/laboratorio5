@@ -24,4 +24,33 @@ public class ClienteController {
     public String retornarCliente(String cpf){
         return this.clientes.get(cpf).toString();
     }
+
+    public String retornarClientes(){
+        String str = "";
+
+        for(Cliente c : this.clientes.values()){
+            str += c.toString() + " | ";
+        }
+
+        int index  = str.trim().lastIndexOf("|");
+
+        if(index == -1){
+            return str.trim();
+        }
+
+        return str.trim().substring(0, index-1);
+    }
+
+    public void editarCliente(String cpf, String nome, String email, String local){
+        Cliente cliente = this.clientes.get(cpf);
+
+        cliente.setNome(nome);
+        cliente.setEmail(email);
+        cliente.setLocalizacao(local);
+
+    }
+
+    public void removerCliente(String cpf){
+        this.clientes.remove(cpf);
+    }
 }

@@ -19,6 +19,18 @@ public class Cliente {
         this.localizacao = localizacao;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setLocalizacao(String localizacao) {
+        this.localizacao = localizacao;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     @Override
     public String toString() {
         return this.nome + " - " + this.localizacao + " - " + this.email;
