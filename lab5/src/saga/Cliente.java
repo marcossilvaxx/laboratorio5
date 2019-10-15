@@ -48,7 +48,16 @@ public class Cliente implements Comparable<Cliente>{
      * @param localizacao a localização do cliente
      */
     public Cliente(String cpf, String nome, String email, String localizacao){
-        Util.verificarParametrosCliente(cpf, nome, email, localizacao);
+        //Util.verificarParametrosCliente(cpf, nome, email, localizacao);
+        if(Util.isNull(nome) || Util.isEmpty(nome)){
+            throw new IllegalArgumentException("Erro no cadastro do cliente: nome nao pode ser vazio ou nulo");
+        }
+        if(Util.isNull(email) || Util.isEmpty(email)){
+            throw new IllegalArgumentException("Erro no cadastro do cliente: email nao pode ser vazio ou nulo");
+        }
+        if(Util.isNull(localizacao) || Util.isEmpty(localizacao)){
+            throw new IllegalArgumentException("Erro no cadastro do cliente: localizacao nao pode ser vazio ou nulo");
+        }
         if(cpf.length() != 11){
             throw new IllegalArgumentException("Erro no cadastro do cliente: cpf invalido.");
         }
@@ -64,8 +73,9 @@ public class Cliente implements Comparable<Cliente>{
      * @param email email do cliente
      */
     public void setEmail(String email) {
-        Util.isNull(email, "email", "cliente");
-        Util.isEmpty(email, "email", "cliente");
+        if(Util.isNull(email) || Util.isEmpty(email)){
+            throw new IllegalArgumentException("Erro na edicao do cliente: email nao pode ser vazio ou nulo");
+        }
 
         this.email = email;
     }
@@ -76,8 +86,9 @@ public class Cliente implements Comparable<Cliente>{
      * @param localizacao localização do cliente
      */
     public void setLocalizacao(String localizacao) {
-        Util.isNull(localizacao, "localizacao", "cliente");
-        Util.isEmpty(localizacao, "localizacao", "cliente");
+        if(Util.isNull(localizacao) || Util.isEmpty(localizacao)){
+            throw new IllegalArgumentException("Erro na edicao do cliente: localizacao nao pode ser vazio ou nulo");
+        }
 
         this.localizacao = localizacao;
     }
@@ -88,8 +99,9 @@ public class Cliente implements Comparable<Cliente>{
      * @param nome nome do cliente
      */
     public void setNome(String nome) {
-        Util.isNull(nome, "nome", "cliente");
-        Util.isEmpty(nome, "nome", "cliente");
+        if(Util.isNull(nome) || Util.isEmpty(nome)){
+            throw new IllegalArgumentException("Erro na edicao do cliente: nome nao pode ser vazio ou nulo");
+        }
 
         this.nome = nome;
     }

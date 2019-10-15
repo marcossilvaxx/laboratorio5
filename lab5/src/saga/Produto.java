@@ -40,7 +40,7 @@ public class Produto implements Comparable<Produto>{
      * @param preco o preço do produto
      */
     public Produto(String nome, String descricao, double preco){
-        Util.verificarParametrosProduto(nome, descricao, preco);
+        //Util.verificarParametrosProduto(nome, descricao, preco);
         this.produtoId = new ProdutoId(nome, descricao);
         this.preco = preco;
     }

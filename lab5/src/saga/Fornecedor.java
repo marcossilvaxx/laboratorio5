@@ -47,7 +47,9 @@ public class Fornecedor implements Comparable<Fornecedor>{
      * @param telefone o telefone do fornecedor
      */
     public Fornecedor(String nome, String email, String telefone){
-        Util.verificarParametrosFornecedor(nome, email, telefone);
+        if(Util.isNull(nome) || Util.isEmpty(nome)){
+            throw new IllegalArgumentException("Erro no cadastro de fornecedor: ");
+        }
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
@@ -60,8 +62,8 @@ public class Fornecedor implements Comparable<Fornecedor>{
      * @param email email do fornecedor
      */
     public void setEmail(String email) {
-        Util.isEmpty(email, "email", "fornecedor");
-        Util.isNull(email, "email", "fornecedor");
+        Util.isEmpty(email);
+        Util.isNull(email);
 
         this.email = email;
     }
@@ -72,8 +74,8 @@ public class Fornecedor implements Comparable<Fornecedor>{
      * @param telefone telefone do fornecedor
      */
     public void setTelefone(String telefone) {
-        Util.isEmpty(telefone, "telefone", "fornecedor");
-        Util.isNull(telefone, "telefone", "fornecedor");
+        Util.isEmpty(telefone);
+        Util.isNull(telefone);
 
         this.telefone = telefone;
     }
@@ -88,11 +90,11 @@ public class Fornecedor implements Comparable<Fornecedor>{
      * @param preco preço do produto
      */
     public void adicionarProduto(String nome, String descricao, double preco){
-        Util.verificarParametrosProduto(nome, descricao, preco);
+        //Util.verificarParametrosProduto(nome, descricao, preco);
 
         Produto produto = new Produto(nome, descricao, preco);
 
-        Util.isRepeated(produto.getProdutoId(), this.produtos, "Nome e Descrição", "produto");
+        Util.isRepeated(produto.getProdutoId(), this.produtos);
 
         this.produtos.put(produto.getProdutoId(), produto);
     }
@@ -106,12 +108,12 @@ public class Fornecedor implements Comparable<Fornecedor>{
      * @return a representação em String do produto pesquisado
      */
     public String consultarProduto(String nome, String descricao){
-        Util.isEmpty(nome, "nome", "produto");
-        Util.isNull(nome, "nome", "produto");
-        Util.isEmpty(descricao, "descricao", "produto");
-        Util.isNull(descricao, "descricao", "produto");
+        Util.isEmpty(nome);
+        Util.isNull(nome);
+        Util.isEmpty(descricao);
+        Util.isNull(descricao);
 
-        Util.isNotRegistered(new ProdutoId(nome, descricao), this.produtos, "Nome e Descrição", "fornecedor");
+        Util.isNotRegistered(new ProdutoId(nome, descricao), this.produtos);
 
         return this.produtos.get(new ProdutoId(nome, descricao)).toString();
     }
@@ -152,9 +154,9 @@ public class Fornecedor implements Comparable<Fornecedor>{
      * @param preco preço do produto
      */
     public void editarProduto(String nome, String descricao, double preco){
-        Util.verificarParametrosProduto(nome, descricao, preco);
+        //Util.verificarParametrosProduto(nome, descricao, preco);
 
-        Util.isNotRegistered(new ProdutoId(nome, descricao), this.produtos, "Nome e Descrição", "fornecedor");
+        Util.isNotRegistered(new ProdutoId(nome, descricao), this.produtos);
 
         Produto produto = this.produtos.get(new ProdutoId(nome, descricao));
         produto.setPreco(preco);
@@ -167,14 +169,14 @@ public class Fornecedor implements Comparable<Fornecedor>{
      * @param descricao descrição do produto a ser removido
      */
     public void excluirProduto(String nome, String descricao){
-        Util.isEmpty(nome, "nome", "produto");
-        Util.isNull(nome, "nome", "produto");
-        Util.isEmpty(descricao, "descricao", "produto");
-        Util.isNull(descricao, "descricao", "produto");
+        Util.isEmpty(nome);
+        Util.isNull(nome);
+        Util.isEmpty(descricao);
+        Util.isNull(descricao);
 
         ProdutoId id = new ProdutoId(nome, descricao);
 
-        Util.isNotRegistered(id, this.produtos, "Nome e Descrição", "fornecedor");
+        Util.isNotRegistered(id, this.produtos);
 
         this.produtos.remove(id);
     }

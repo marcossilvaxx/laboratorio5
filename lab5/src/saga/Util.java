@@ -18,36 +18,27 @@ import java.util.HashMap;
 
 public class Util {
 
-    public static void isNull(String parametro, String nomeParametro, String nomeObjeto){
-        if(parametro == null){
-            throw new NullPointerException("Erro no cadastro do " + nomeObjeto + ": " + nomeParametro + " nao pode ser vazio ou nulo.");
-        }
+    public static boolean isNull(String parametro){
+        return parametro == null;
     }
 
-    public static void isEmpty(String parametro, String nomeParametro, String nomeObjeto){
-        if(parametro.trim().equals("")){
-            throw new IllegalArgumentException("Erro no cadastro do " + nomeObjeto + ": " + nomeParametro + " nao pode ser vazio ou nulo.");
-        }
+    public static boolean isEmpty(String parametro){
+        return parametro.trim().equals("");
     }
 
-    public static void isNegative(double preco){
-        if(preco < 0){
-            throw new IllegalArgumentException("Erro no cadastro de produto: preco invalido.");
-        }
+    public static boolean isNegative(double preco){
+        return preco < 0;
     }
 
-    public static void isRepeated(Object chave, HashMap map, String nomeChave, String nomeObjeto){
-        if(map.containsKey(chave)){
-            throw new IllegalArgumentException("Erro no cadastro do " + nomeObjeto + ": " + nomeObjeto + " ja existe.");
-        }
+    public static boolean isRepeated(Object chave, HashMap map){
+        return map.containsKey(chave);
     }
 
-    public static void isNotRegistered(Object chave, HashMap map, String nomeChave, String nomeObjeto){
-        if(!map.containsKey(chave)){
-            throw new IllegalArgumentException("Erro na exibicao do " + nomeObjeto + ": " + nomeObjeto + " nao existe.");
-        }
+    public static boolean isNotRegistered(Object chave, HashMap map){
+        return !(map.containsKey(chave));
     }
 
+    /*
     public static void verificarParametrosCliente(String cpf, String nome, String email, String localizacao) {
         Util.isNull(cpf, "cpf", "cliente");
         Util.isEmpty(cpf, "cpf", "cliente");
@@ -75,5 +66,6 @@ public class Util {
         Util.isEmpty(descricao, "descricao", "produto");
         Util.isNegative(preco);
     }
+    */
 
 }

@@ -37,10 +37,10 @@ public class ProdutoId {
      * @param descricao a descrição do produto
      */
     public ProdutoId(String nome, String descricao){
-        Util.isNull(nome, "nome", "produto");
-        Util.isEmpty(nome, "nome", "produto");
-        Util.isNull(descricao, "descricao", "produto");
-        Util.isEmpty(descricao, "descricao", "produto");
+        Util.isNull(nome);
+        Util.isEmpty(nome);
+        Util.isNull(descricao);
+        Util.isEmpty(descricao);
         this.nome = nome;
         this.descricao = descricao;
     }
@@ -73,8 +73,8 @@ public class ProdutoId {
      * @param nome nome do produto
      */
     public void setNome(String nome) {
-        Util.isNull(nome, "nome", "produto");
-        Util.isEmpty(nome, "nome", "produto");
+        Util.isNull(nome);
+        Util.isEmpty(nome);
         this.nome = nome;
     }
 
@@ -84,8 +84,8 @@ public class ProdutoId {
      * @param descricao descrição do produto
      */
     public void setDescricao(String descricao) {
-        Util.isNull(descricao, "descricao", "produto");
-        Util.isEmpty(descricao, "descricao", "produto");
+        Util.isNull(descricao);
+        Util.isEmpty(descricao);
         this.descricao = descricao;
     }
 

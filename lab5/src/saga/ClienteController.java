@@ -45,13 +45,13 @@ public class ClienteController {
      */
     public String cadastrarCliente(String cpf, String nome, String email, String local){
 
-        Util.verificarParametrosCliente(cpf, nome, email, local);
+        //Util.verificarParametrosCliente(cpf, nome, email, local);
 
         if(cpf.length() != 11){
             throw new IllegalArgumentException("Erro no cadastro do cliente: cpf invalido.");
         }
 
-        Util.isRepeated(cpf, this.clientes, "CPF", "cliente");
+        Util.isRepeated(cpf, this.clientes);
 
         this.clientes.put(cpf, new Cliente(cpf, nome, email, local));
 
@@ -66,11 +66,11 @@ public class ClienteController {
      * @return a representação em String do cliente pesquisado
      */
     public String retornarCliente(String cpf){
-        Util.isNull(cpf, "cpf", "cliente");
-        Util.isEmpty(cpf, "cpf", "cliente");
+        Util.isNull(cpf);
+        Util.isEmpty(cpf);
 
 
-        Util.isNotRegistered(cpf, this.clientes, "CPF", "cliente");
+        Util.isNotRegistered(cpf, this.clientes);
 
         return this.clientes.get(cpf).toString();
     }
@@ -120,7 +120,7 @@ public class ClienteController {
             throw new IllegalArgumentException("Erro na edicao do cliente: atributo nao pode ser vazio ou nulo.");
         }
 
-        Util.isNotRegistered(cpf, this.clientes, "CPF", "cliente");
+        Util.isNotRegistered(cpf, this.clientes);
 
         Cliente cliente = this.clientes.get(cpf);
 
@@ -147,10 +147,10 @@ public class ClienteController {
      * @param cpf cpf do cliente a ser removido
      */
     public void removerCliente(String cpf){
-        Util.isEmpty(cpf, "cpf", "cliente");
-        Util.isNull(cpf, "cpf", "cliente");
+        Util.isEmpty(cpf);
+        Util.isNull(cpf);
 
-        Util.isNotRegistered(cpf, this.clientes, "CPF", "cliente");
+        Util.isNotRegistered(cpf, this.clientes);
 
         this.clientes.remove(cpf);
     }

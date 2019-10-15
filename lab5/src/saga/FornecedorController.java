@@ -46,9 +46,9 @@ public class FornecedorController {
      * @return nome do fornecedor caso seja cadastrado com sucesso.
      */
     public String cadastrarFornecedor(String nome, String email, String telefone){
-        Util.verificarParametrosFornecedor(nome, email, telefone);
+        //Util.verificarParametrosFornecedor(nome, email, telefone);
 
-        Util.isRepeated(nome, this.fornecedores, "nome", "fornecedor");
+        Util.isRepeated(nome, this.fornecedores);
 
         this.fornecedores.put(nome, new Fornecedor(nome, email, telefone));
 
@@ -63,10 +63,10 @@ public class FornecedorController {
      * @return a representação em String do fornecedor pesquisado
      */
     public String retornarFornecedor(String nome){
-        Util.isEmpty(nome, "nome", "fornecedor");
-        Util.isNull(nome, "nome", "fornecedor");
+        Util.isEmpty(nome);
+        Util.isNull(nome);
 
-        Util.isNotRegistered(nome, this.fornecedores, "Nome", "fornecedor");
+        Util.isNotRegistered(nome, this.fornecedores);
 
         return this.fornecedores.get(nome).toString();
     }
@@ -131,7 +131,7 @@ public class FornecedorController {
             throw new IllegalArgumentException("Erro na edicao do fornecedor: nome nao pode ser vazio ou nulo.");
         }
 
-        Util.isNotRegistered(nome, this.fornecedores, "nome", "fornecedor");
+        Util.isNotRegistered(nome, this.fornecedores);
 
         Fornecedor fornecedor = this.fornecedores.get(nome);
 
@@ -155,44 +155,44 @@ public class FornecedorController {
      * @param nome nome do fornecedor a ser removido
      */
     public void removerFornecedor(String nome){
-        Util.isNull(nome, "nome", "fornecedor");
-        Util.isEmpty(nome, "nome", "fornecedor");
+        Util.isNull(nome);
+        Util.isEmpty(nome);
 
-        Util.isNotRegistered(nome, this.fornecedores, "Nome", "fornecedor");
+        Util.isNotRegistered(nome, this.fornecedores);
 
         this.fornecedores.remove(nome);
     }
 
     public void cadastrarProduto(String nomeFornecedor, String nomeProduto, String descricao, double preco){
-        Util.isNull(nomeFornecedor, "Nome do Fornecedor", "produto");
-        Util.isEmpty(nomeFornecedor, "Nome do Fornecedor", "produto");
+        Util.isNull(nomeFornecedor);
+        Util.isEmpty(nomeFornecedor);
 
-        Util.isNotRegistered(nomeFornecedor, this.fornecedores, "Nome do Fornecedor", "fornecedor");
+        Util.isNotRegistered(nomeFornecedor, this.fornecedores);
 
-        Util.verificarParametrosProduto(nomeProduto, descricao, preco);
+        //Util.verificarParametrosProduto(nomeProduto, descricao, preco);
 
         this.fornecedores.get(nomeFornecedor).adicionarProduto(nomeProduto, descricao, preco);
     }
 
     public String consultarProduto(String nomeFornecedor, String nomeProduto, String descricao){
-        Util.isEmpty(nomeFornecedor, "Nome do Fornecedor", "produto");
-        Util.isNull(nomeFornecedor, "Nome do Fornecedor", "produto");
+        Util.isEmpty(nomeFornecedor);
+        Util.isNull(nomeFornecedor);
 
-        Util.isNotRegistered(nomeFornecedor, this.fornecedores, "Nome do Fornecedor", "fornecedor");
+        Util.isNotRegistered(nomeFornecedor, this.fornecedores);
 
-        Util.isEmpty(nomeProduto, "Nome do Produto", "produto");
-        Util.isNull(nomeProduto, "Nome do Produto", "produto");
-        Util.isEmpty(descricao, "Descrição", "produto");
-        Util.isNull(descricao, "Descrição", "produto");
+        Util.isEmpty(nomeProduto);
+        Util.isNull(nomeProduto);
+        Util.isEmpty(descricao);
+        Util.isNull(descricao);
 
         return this.fornecedores.get(nomeFornecedor).consultarProduto(nomeProduto, descricao);
     }
 
     public String consultarProdutos(String nomeFornecedor){
-        Util.isEmpty(nomeFornecedor, "Nome do Fornecedor", "produto");
-        Util.isNull(nomeFornecedor, "Nome do Fornecedor", "produto");
+        Util.isEmpty(nomeFornecedor);
+        Util.isNull(nomeFornecedor);
 
-        Util.isNotRegistered(nomeFornecedor, this.fornecedores, "Nome do Fornecedor", "fornecedor");
+        Util.isNotRegistered(nomeFornecedor, this.fornecedores);
 
         return this.fornecedores.get(nomeFornecedor).consultarProdutos();
     }
@@ -218,26 +218,26 @@ public class FornecedorController {
     }
 
     public void editarProduto(String nomeFornecedor, String nomeProduto, String descricao, double preco){
-        Util.isEmpty(nomeFornecedor, "Nome do Fornecedor", "produto");
-        Util.isNull(nomeFornecedor, "Nome do Fornecedor", "produto");
+        Util.isEmpty(nomeFornecedor);
+        Util.isNull(nomeFornecedor);
 
-        Util.isNotRegistered(nomeFornecedor, this.fornecedores, "Nome do Fornecedor", "fornecedor");
+        Util.isNotRegistered(nomeFornecedor, this.fornecedores);
 
-        Util.verificarParametrosProduto(nomeProduto, descricao, preco);
+        //Util.verificarParametrosProduto(nomeProduto, descricao, preco);
 
         this.fornecedores.get(nomeFornecedor).editarProduto(nomeProduto, descricao, preco);
     }
 
     public void removerProduto(String nomeFornecedor, String nomeProduto, String descricao){
-        Util.isNull(nomeFornecedor, "Nome do Fornecedor", "produto");
-        Util.isEmpty(nomeFornecedor, "Nome do Fornecedor", "produto");
+        Util.isNull(nomeFornecedor);
+        Util.isEmpty(nomeFornecedor);
 
-        Util.isNotRegistered(nomeFornecedor, this.fornecedores, "Nome do Fornecedor", "fornecedor");
+        Util.isNotRegistered(nomeFornecedor, this.fornecedores);
 
-        Util.isNull(nomeProduto, "Nome do Produto", "produto");
-        Util.isEmpty(nomeProduto, "Nome do Produto", "produto");
-        Util.isNull(descricao, "descricao", "produto");
-        Util.isEmpty(descricao, "descricao", "produto");
+        Util.isNull(nomeProduto);
+        Util.isEmpty(nomeProduto);
+        Util.isNull(descricao);
+        Util.isEmpty(descricao);
 
 
         this.fornecedores.get(nomeFornecedor).excluirProduto(nomeProduto, descricao);
