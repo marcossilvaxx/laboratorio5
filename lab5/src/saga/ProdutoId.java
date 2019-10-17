@@ -37,10 +37,12 @@ public class ProdutoId {
      * @param descricao a descrição do produto
      */
     public ProdutoId(String nome, String descricao){
-        Util.isNull(nome);
-        Util.isEmpty(nome);
-        Util.isNull(descricao);
-        Util.isEmpty(descricao);
+        if(Util.isNull(nome) || Util.isEmpty(nome)){
+            throw new IllegalArgumentException("Erro no cadastro de produto: nome nao pode ser vazio ou nulo.");
+        }
+        if(Util.isNull(descricao) || Util.isEmpty(descricao)){
+            throw new IllegalArgumentException("Erro no cadastro de produto: descricao nao pode ser vazia ou nula.");
+        }
         this.nome = nome;
         this.descricao = descricao;
     }
@@ -73,8 +75,9 @@ public class ProdutoId {
      * @param nome nome do produto
      */
     public void setNome(String nome) {
-        Util.isNull(nome);
-        Util.isEmpty(nome);
+        if(Util.isNull(nome) || Util.isEmpty(nome)){
+            throw new IllegalArgumentException("Erro na edicao de produto: nome nao pode ser vazio ou nulo.");
+        }
         this.nome = nome;
     }
 
@@ -84,8 +87,9 @@ public class ProdutoId {
      * @param descricao descrição do produto
      */
     public void setDescricao(String descricao) {
-        Util.isNull(descricao);
-        Util.isEmpty(descricao);
+        if(Util.isNull(descricao) || Util.isEmpty(descricao)){
+            throw new IllegalArgumentException("Erro na edicao de produto: descricao nao pode ser vazia ou nula.");
+        }
         this.descricao = descricao;
     }
 

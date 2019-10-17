@@ -50,13 +50,13 @@ public class Cliente implements Comparable<Cliente>{
     public Cliente(String cpf, String nome, String email, String localizacao){
         //Util.verificarParametrosCliente(cpf, nome, email, localizacao);
         if(Util.isNull(nome) || Util.isEmpty(nome)){
-            throw new IllegalArgumentException("Erro no cadastro do cliente: nome nao pode ser vazio ou nulo");
+            throw new IllegalArgumentException("Erro no cadastro do cliente: nome nao pode ser vazio ou nulo.");
         }
         if(Util.isNull(email) || Util.isEmpty(email)){
-            throw new IllegalArgumentException("Erro no cadastro do cliente: email nao pode ser vazio ou nulo");
+            throw new IllegalArgumentException("Erro no cadastro do cliente: email nao pode ser vazio ou nulo.");
         }
         if(Util.isNull(localizacao) || Util.isEmpty(localizacao)){
-            throw new IllegalArgumentException("Erro no cadastro do cliente: localizacao nao pode ser vazio ou nulo");
+            throw new IllegalArgumentException("Erro no cadastro do cliente: localizacao nao pode ser vazia ou nula.");
         }
         if(cpf.length() != 11){
             throw new IllegalArgumentException("Erro no cadastro do cliente: cpf invalido.");

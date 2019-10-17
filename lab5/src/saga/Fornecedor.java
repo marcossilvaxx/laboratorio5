@@ -48,12 +48,30 @@ public class Fornecedor implements Comparable<Fornecedor>{
      */
     public Fornecedor(String nome, String email, String telefone){
         if(Util.isNull(nome) || Util.isEmpty(nome)){
-            throw new IllegalArgumentException("Erro no cadastro de fornecedor: ");
+            throw new IllegalArgumentException("Erro no cadastro do fornecedor: nome nao pode ser vazio ou nulo.");
         }
+        if(Util.isNull(email) || Util.isEmpty(email)){
+            throw new IllegalArgumentException("Erro no cadastro do fornecedor: email nao pode ser vazio ou nulo.");
+        }
+        if(Util.isNull(telefone) || Util.isEmpty(telefone)){
+            throw new IllegalArgumentException("Erro no cadastro do fornecedor: telefone nao pode ser vazio ou nulo.");
+        }
+
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
         this.produtos = new HashMap<>();
+    }
+
+    /**
+
+     * Retorna uma String representando o nome do Fornecedor.
+
+     *
+     * @return uma String representando o nome do Fornecedor.
+     */
+    public String getNome() {
+        return this.nome;
     }
 
     /**
@@ -62,8 +80,9 @@ public class Fornecedor implements Comparable<Fornecedor>{
      * @param email email do fornecedor
      */
     public void setEmail(String email) {
-        Util.isEmpty(email);
-        Util.isNull(email);
+        if(Util.isNull(email) || Util.isEmpty(email)){
+            throw new IllegalArgumentException("Erro na edicao do fornecedor: email nao pode ser vazio ou nulo.");
+        };
 
         this.email = email;
     }
@@ -74,8 +93,9 @@ public class Fornecedor implements Comparable<Fornecedor>{
      * @param telefone telefone do fornecedor
      */
     public void setTelefone(String telefone) {
-        Util.isEmpty(telefone);
-        Util.isNull(telefone);
+        if(Util.isNull(telefone) || Util.isEmpty(telefone)){
+            throw new IllegalArgumentException("Erro na edicao do fornecedor: telefone nao pode ser vazio ou nulo.");
+        }
 
         this.telefone = telefone;
     }
@@ -91,10 +111,21 @@ public class Fornecedor implements Comparable<Fornecedor>{
      */
     public void adicionarProduto(String nome, String descricao, double preco){
         //Util.verificarParametrosProduto(nome, descricao, preco);
+        if(Util.isNull(nome) || Util.isEmpty(nome)){
+            throw new IllegalArgumentException("Erro no cadastro de produto: nome nao pode ser vazio ou nulo.");
+        }
+        if(Util.isNull(descricao) || Util.isEmpty(descricao)){
+            throw new IllegalArgumentException("Erro no cadastro de produto: descricao nao pode ser vazia ou nula.");
+        }
+        if(Util.isNegative(preco)){
+            throw new IllegalArgumentException("Erro no cadastro de produto: preco invalido.");
+        }
 
         Produto produto = new Produto(nome, descricao, preco);
 
-        Util.isRepeated(produto.getProdutoId(), this.produtos);
+        if(Util.isRepeated(produto.getProdutoId(), this.produtos)){
+            throw new IllegalArgumentException("Erro no cadastro de produto: produto ja existe.");
+        }
 
         this.produtos.put(produto.getProdutoId(), produto);
     }
@@ -108,12 +139,16 @@ public class Fornecedor implements Comparable<Fornecedor>{
      * @return a representação em String do produto pesquisado
      */
     public String consultarProduto(String nome, String descricao){
-        Util.isEmpty(nome);
-        Util.isNull(nome);
-        Util.isEmpty(descricao);
-        Util.isNull(descricao);
+        if(Util.isNull(nome) || Util.isEmpty(nome)){
+            throw new IllegalArgumentException("Erro na exibicao de produto: nome nao pode ser vazio ou nulo.");
+        }
+        if(Util.isNull(descricao) || Util.isEmpty(descricao)){
+            throw new IllegalArgumentException("Erro na exibicao de produto: descricao nao pode ser vazia ou nula.");
+        }
 
-        Util.isNotRegistered(new ProdutoId(nome, descricao), this.produtos);
+        if(Util.isNotRegistered(new ProdutoId(nome, descricao), this.produtos)){
+            throw new IllegalArgumentException("Erro na exibicao de produto: produto nao existe.");
+        }
 
         return this.produtos.get(new ProdutoId(nome, descricao)).toString();
     }
@@ -156,7 +191,19 @@ public class Fornecedor implements Comparable<Fornecedor>{
     public void editarProduto(String nome, String descricao, double preco){
         //Util.verificarParametrosProduto(nome, descricao, preco);
 
-        Util.isNotRegistered(new ProdutoId(nome, descricao), this.produtos);
+        if(Util.isNull(nome) || Util.isEmpty(nome)){
+            throw new IllegalArgumentException("Erro na edicao de produto: nome nao pode ser vazio ou nulo.");
+        }
+        if(Util.isNull(descricao) || Util.isEmpty(descricao)){
+            throw new IllegalArgumentException("Erro na edicao de produto: descricao nao pode ser vazia ou nula.");
+        }
+        if(Util.isNegative(preco)){
+            throw new IllegalArgumentException("Erro na edicao de produto: preco invalido.");
+        }
+
+        if(Util.isNotRegistered(new ProdutoId(nome, descricao), this.produtos)){
+            throw new IllegalArgumentException("Erro na edicao de produto: produto nao existe.");
+        }
 
         Produto produto = this.produtos.get(new ProdutoId(nome, descricao));
         produto.setPreco(preco);
@@ -169,14 +216,18 @@ public class Fornecedor implements Comparable<Fornecedor>{
      * @param descricao descrição do produto a ser removido
      */
     public void excluirProduto(String nome, String descricao){
-        Util.isEmpty(nome);
-        Util.isNull(nome);
-        Util.isEmpty(descricao);
-        Util.isNull(descricao);
+        if(Util.isNull(nome) || Util.isEmpty(nome)){
+            throw new IllegalArgumentException("Erro na remocao de produto: nome nao pode ser vazio ou nulo.");
+        }
+        if(Util.isNull(descricao) || Util.isEmpty(descricao)){
+            throw new IllegalArgumentException("Erro na remocao de produto: descricao nao pode ser vazia ou nula.");
+        }
 
         ProdutoId id = new ProdutoId(nome, descricao);
 
-        Util.isNotRegistered(id, this.produtos);
+        if(Util.isNotRegistered(id, this.produtos)){
+            throw new IllegalArgumentException("Erro na remocao de produto: produto nao existe.");
+        }
 
         this.produtos.remove(id);
     }
