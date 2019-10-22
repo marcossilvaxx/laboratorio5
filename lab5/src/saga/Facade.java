@@ -88,4 +88,8 @@ public class Facade {
     public String exibeProdutos(){
         return this.fornecedorController.consultarTodosProdutos();
     }
+
+    public void adicionaCompra(String cpfCliente, String nomeFornecedor, String data, String nomeProduto, String descricaoProduto){
+        this.fornecedorController.adicionarCompra(cpfCliente, nomeFornecedor, data, nomeProduto, descricaoProduto);
+    }
 }

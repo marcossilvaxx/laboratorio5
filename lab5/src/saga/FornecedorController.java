@@ -337,4 +337,15 @@ public class FornecedorController {
 
         this.fornecedores.get(nomeFornecedor).excluirProduto(nomeProduto, descricao);
     }
+
+    public boolean fornecedorIsNotRegistered(String nome){
+        return !(this.fornecedores.containsKey(nome));
+    }
+
+    public void adicionarCompra(String cpfCliente, String nomeFornecedor, String data, String nomeProduto, String descricaoProduto){
+        if(fornecedorIsNotRegistered(nomeFornecedor)){
+            throw new IllegalArgumentException("Erro ao cadastrar compra: fornecedor nao existe");
+        }
+        this.fornecedores.get(nomeFornecedor).adicionaCompra(cpfCliente, data, nomeProduto, descricaoProduto);
+    }
 }

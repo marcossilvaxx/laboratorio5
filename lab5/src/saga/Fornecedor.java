@@ -337,7 +337,9 @@ public class Fornecedor implements Comparable<Fornecedor>{
             this.contas.put(cpfCliente, new Conta());
         }
 
-        this.contas.get(cpfCliente).cadastrarCompra(data, nomeProduto, descricaoProduto);
+        Produto produto = this.produtos.get(new ProdutoId(nomeProduto, descricaoProduto));
+
+        this.contas.get(cpfCliente).cadastrarCompra(data, nomeProduto, descricaoProduto, produto.getPreco());
     }
 
     /**

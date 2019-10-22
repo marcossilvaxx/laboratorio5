@@ -83,7 +83,7 @@ public class ClienteController {
             throw new IllegalArgumentException("Erro na exibicao do cliente: cpf nao pode ser vazio ou nulo.");
         }
 
-        if(Util.isNotRegistered(cpf, this.clientes)){
+        if(clienteIsNotRegistered(cpf)){
             throw new IllegalArgumentException("Erro na exibicao do cliente: cliente nao existe.");
         }
 
@@ -137,7 +137,7 @@ public class ClienteController {
             throw new IllegalArgumentException("Erro na edicao do cliente: novo valor nao pode ser vazio ou nulo.");
         }
 
-        if(Util.isNotRegistered(cpf, this.clientes)){
+        if(clienteIsNotRegistered(cpf)){
             throw new IllegalArgumentException("Erro na edicao do cliente: cliente nao existe.");
         }
 
@@ -170,10 +170,14 @@ public class ClienteController {
             throw new IllegalArgumentException("Erro na remocao do cliente: cpf nao pode ser vazio ou nulo");
         }
 
-        if(Util.isNotRegistered(cpf, this.clientes)){
+        if(clienteIsNotRegistered(cpf)){
             throw new IllegalArgumentException("Erro na remocao do cliente: cliente nao existe.");
         }
 
         this.clientes.remove(cpf);
+    }
+
+    public boolean clienteIsNotRegistered(String cpf){
+        return !(this.clientes.containsKey(cpf));
     }
 }
