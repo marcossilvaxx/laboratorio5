@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Laboratório de Programação 2 - Lab 5
@@ -24,7 +25,7 @@ public class FornecedorController {
     /**
      * Mapa de fornecedores. Corresponde ao mapa de fornecedores.
      */
-    private HashMap<String, Fornecedor> fornecedores;
+    private Map<String, Fornecedor> fornecedores;
 
     /**
      * Constrói um controller para fornecedores.
@@ -189,6 +190,32 @@ public class FornecedorController {
         }
 
         this.fornecedores.get(nomeFornecedor).adicionarProduto(nomeProduto, descricao, preco);
+    }
+
+    public void cadastrarProdutoCombo(String nomeFornecedor, String nomeCombo, String descricaoCombo, double fator, String produtosStr){
+        if(Util.isNull(nomeFornecedor) || Util.isEmpty(nomeFornecedor)){
+            throw new IllegalArgumentException("Erro no cadastro de combo: fornecedor nao pode ser vazio ou nulo.");
+        }
+
+        if(Util.isNotRegistered(nomeFornecedor, this.fornecedores)){
+            throw new IllegalArgumentException("Erro no cadastro de combo: fornecedor nao existe.");
+        }
+
+        //Util.verificarParametrosProduto(nomeProduto, descricao, preco);
+        if(Util.isNull(nomeCombo) || Util.isEmpty(nomeCombo)){
+            throw new IllegalArgumentException("Erro no cadastro de combo: nome nao pode ser vazio ou nulo.");
+        }
+        if(Util.isNull(descricaoCombo) || Util.isEmpty(descricaoCombo)){
+            throw new IllegalArgumentException("Erro no cadastro de combo: descricao nao pode ser vazia ou nula.");
+        }
+        if(Util.isNegative(fator) || fator >= 1){
+            throw new IllegalArgumentException("Erro no cadastro de combo: fator invalido.");
+        }
+        if(Util.isNull(produtosStr) || Util.isEmpty(produtosStr)){
+            throw new IllegalArgumentException("Erro no cadastro de combo: combo deve ter produtos.");
+        }
+
+        this.fornecedores.get(nomeFornecedor).adicionarCombo(nomeCombo, descricaoCombo, fator, produtosStr);
     }
 
     public String consultarProduto(String nomeFornecedor, String nomeProduto, String descricao){

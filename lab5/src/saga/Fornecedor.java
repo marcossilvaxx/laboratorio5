@@ -36,7 +36,7 @@ public class Fornecedor implements Comparable<Fornecedor>{
     /**
      * Mapa de produtos. Corresponde ao mapa de produtos do fornecedor.
      */
-    private HashMap<ProdutoId, Produto> produtos;
+    private Map<ProdutoId, Produto> produtos;
 
     /**
      * Constrói um fornecedor a partir de seu nome, email e telefone.
@@ -102,8 +102,8 @@ public class Fornecedor implements Comparable<Fornecedor>{
 
     /**
 
-     * Cadastra um novo Produto.
-     * Adiciona um objeto do tipo Produto no mapa de produtos.
+     * Cadastra um novo ProdutoSimples.
+     * Adiciona um objeto do tipo ProdutoSimples no mapa de produtos.
 
      * @param nome nome do produto
      * @param descricao descrição do produto
@@ -121,13 +121,72 @@ public class Fornecedor implements Comparable<Fornecedor>{
             throw new IllegalArgumentException("Erro no cadastro de produto: preco invalido.");
         }
 
-        Produto produto = new Produto(nome, descricao, preco);
+        ProdutoSimples produto = new ProdutoSimples(nome, descricao, preco);
 
         if(Util.isRepeated(produto.getProdutoId(), this.produtos)){
             throw new IllegalArgumentException("Erro no cadastro de produto: produto ja existe.");
         }
 
         this.produtos.put(produto.getProdutoId(), produto);
+    }
+
+    /**
+
+     * Cadastra um novo ProdutoComposto (Combo).
+     * Adiciona um objeto do tipo ProdutoComposto no mapa de produtos.
+
+     * @param nome nome do produto
+     * @param descricao descrição do produto
+     * @param fator fator de promoção
+     * @param produtosStr string dos produtos simples do combo
+     */
+    public void adicionarCombo(String nome, String descricao, double fator, String produtosStr){
+        if(Util.isNull(nome) || Util.isEmpty(nome)){
+            throw new IllegalArgumentException("Erro no cadastro de combo: nome nao pode ser vazio ou nulo.");
+        }
+        if(Util.isNull(descricao) || Util.isEmpty(descricao)){
+            throw new IllegalArgumentException("Erro no cadastro de combo: descricao nao pode ser vazia ou nula.");
+        }
+        if(Util.isNegative(fator) || fator >= 1){
+            throw new IllegalArgumentException("Erro no cadastro de combo: fator invalido.");
+        }
+        if(Util.isNull(produtosStr) || Util.isEmpty(produtosStr)){
+            throw new IllegalArgumentException("Erro no cadastro de combo: combo deve ter produtos.");
+        }
+
+        ArrayList<Produto> produtosSimples = new ArrayList<>();
+
+        double preco = 0;
+
+        for(String produtoStr : produtosStr.split(", ")){
+            String nomeProduto = produtoStr.split(" - ")[0];
+            String descricaoProduto = produtoStr.split(" - ")[1];
+
+            Produto produto = this.produtos.get(new ProdutoId(nomeProduto, descricaoProduto));
+
+            if(produto == null){
+                throw new IllegalArgumentException("Erro no cadastro de combo: produto nao existe.");
+            }
+
+            if(produto instanceof ProdutoComposto){
+                throw new IllegalArgumentException("Erro no cadastro de combo: um combo nao pode possuir combos na lista de produtos.");
+            }
+
+            produtosSimples.add(produto);
+
+            preco += produto.getPreco();
+        }
+
+        preco = preco - preco * fator;
+
+        ProdutoId id = new ProdutoId(nome, descricao);
+
+        if(Util.isRepeated(id, this.produtos)){
+            throw new IllegalArgumentException("Erro no cadastro de combo: combo ja existe.");
+        }
+
+        this.produtos.put(id, new ProdutoComposto(nome, descricao, preco, produtosSimples));
+
     }
 
     /**
@@ -156,7 +215,7 @@ public class Fornecedor implements Comparable<Fornecedor>{
     /**
 
      * Retorna uma String representando todos os produtos do mapa de produtos em ordem alfabética.
-     * A representação de cada produto segue o formato “Nome do Produto - Descrição do Produto - Preço do Produto”.
+     * A representação de cada produto segue o formato “Nome do ProdutoSimples - Descrição do ProdutoSimples - Preço do ProdutoSimples”.
 
      *
      * @return a representação em String de todos os produtos do mapa de produtos em ordem alfabética.

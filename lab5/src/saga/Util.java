@@ -1,6 +1,7 @@
 package saga;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Laboratório de Programação 2 - Lab 5
@@ -30,11 +31,11 @@ public class Util {
         return preco < 0;
     }
 
-    public static boolean isRepeated(Object chave, HashMap map){
+    public static boolean isRepeated(Object chave, Map map){
         return map.containsKey(chave);
     }
 
-    public static boolean isNotRegistered(Object chave, HashMap map){
+    public static boolean isNotRegistered(Object chave, Map map){
         return !(map.containsKey(chave));
     }
 

@@ -64,7 +64,7 @@ public class Conta {
     /**
 
      * Retorna uma String representando todas as compras da lista de compras.
-     * A representação de cada compra segue o formato “Nome do Produto   Descricao do Produto - Data”.
+     * A representação de cada compra segue o formato “Nome do ProdutoSimples   Descricao do ProdutoSimples - Data”.
 
      *
      * @return a representação em String de todas as compras da lista de compras.

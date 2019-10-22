@@ -53,6 +53,10 @@ public class Facade {
         this.fornecedorController.cadastrarProduto(fornecedor, nome, descricao, preco);
     }
 
+    public void adicionaCombo(String fornecedor, String nome, String descricao, double fator, String produtos){
+        this.fornecedorController.cadastrarProdutoCombo(fornecedor, nome, descricao, fator, produtos);
+    }
+
     public String exibeProduto(String nome, String descricao, String fornecedor){
         return this.fornecedorController.consultarProduto(fornecedor, nome, descricao);
     }

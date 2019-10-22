@@ -10,7 +10,7 @@ import java.util.Objects;
 
 /**
 
- * Representação de uma identificação da classe Produto.
+ * Representação de uma identificação da classe ProdutoSimples.
  *
  * Todo ProdutoID precisa ter nome e descrição.
  *
@@ -49,10 +49,10 @@ public class ProdutoId {
 
     /**
 
-     * Retorna uma String representando o nome do Produto.
+     * Retorna uma String representando o nome do ProdutoSimples.
 
      *
-     * @return uma String representando o nome do Produto.
+     * @return uma String representando o nome do ProdutoSimples.
      */
     public String getNome() {
         return this.nome;
@@ -60,10 +60,10 @@ public class ProdutoId {
 
     /**
 
-     * Retorna uma String representando a descrição do Produto.
+     * Retorna uma String representando a descrição do ProdutoSimples.
 
      *
-     * @return uma String representando a descrição do Produto.
+     * @return uma String representando a descrição do ProdutoSimples.
      */
     public String getDescricao() {
         return this.descricao;

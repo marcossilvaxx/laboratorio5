@@ -21,7 +21,7 @@ public class ClienteController {
     /**
      * Mapa de clientes. Corresponde ao mapa de clientes.
      */
-    private HashMap<String, Cliente> clientes;
+    private Map<String, Cliente> clientes;
 
     /**
      * Constrói um controller para clientes.

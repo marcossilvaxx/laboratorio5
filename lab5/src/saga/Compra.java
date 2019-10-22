@@ -61,7 +61,7 @@ public class Compra {
      * Retorna a String que representa a Compra.
 
      *
-     * @return uma String representando a Compra no formato "Nome do Produto   Descricao do Produto - Data".
+     * @return uma String representando a Compra no formato "Nome do ProdutoSimples   Descricao do ProdutoSimples - Data".
      */
     @Override
     public String toString() {
