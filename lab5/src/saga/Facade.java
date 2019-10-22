@@ -65,6 +65,10 @@ public class Facade {
         this.fornecedorController.editarProduto(fornecedor, nome, descricao, novoPreco);
     }
 
+    public void editaCombo(String nome, String descricao, String fornecedor, double novoFator){
+        this.fornecedorController.editarCombo(fornecedor, nome, descricao, novoFator);
+    }
+
     public void removeProduto(String nome, String descricao, String fornecedor){
         this.fornecedorController.removerProduto(fornecedor, nome, descricao);
     }

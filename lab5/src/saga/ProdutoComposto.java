@@ -41,14 +41,14 @@ public class ProdutoComposto extends ProdutoAbstract{
     }
 
 
-    private double calculaPreco(double fator, List<ProdutoSimples> produtos){
+    public double calculaPreco(double fator){
         double soma = 0;
 
-        for(ProdutoSimples p : produtos){
+        for(Produto p : this.produtos){
             soma += p.getPreco();
         }
 
-        return soma * fator;
+        return soma - soma * fator;
     }
 
 }

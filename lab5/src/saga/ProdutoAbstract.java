@@ -17,7 +17,7 @@ public abstract class ProdutoAbstract implements Produto{
     /**
      * Preço do produto. Corresponde ao preço do produto.
      */
-    private double preco;
+    protected double preco;
 
     /**
      * Constrói um produto a partir de seu nome, descrição e preço.

@@ -37,6 +37,10 @@ public class Fornecedor implements Comparable<Fornecedor>{
      * Mapa de produtos. Corresponde ao mapa de produtos do fornecedor.
      */
     private Map<ProdutoId, Produto> produtos;
+    /**
+     * Mapa de contgas. Corresponde ao mapa de produtos do fornecedor.
+     */
+    private Map<String, Conta> contas;
 
     /**
      * Constrói um fornecedor a partir de seu nome, email e telefone.
@@ -61,6 +65,7 @@ public class Fornecedor implements Comparable<Fornecedor>{
         this.email = email;
         this.telefone = telefone;
         this.produtos = new HashMap<>();
+        this.contas = new HashMap<>();
     }
 
     /**
@@ -147,7 +152,7 @@ public class Fornecedor implements Comparable<Fornecedor>{
         if(Util.isNull(descricao) || Util.isEmpty(descricao)){
             throw new IllegalArgumentException("Erro no cadastro de combo: descricao nao pode ser vazia ou nula.");
         }
-        if(Util.isNegative(fator) || fator >= 1){
+        if(fator <= 0 || fator >= 1){
             throw new IllegalArgumentException("Erro no cadastro de combo: fator invalido.");
         }
         if(Util.isNull(produtosStr) || Util.isEmpty(produtosStr)){
@@ -269,6 +274,32 @@ public class Fornecedor implements Comparable<Fornecedor>{
     }
 
     /**
+     * Edita um combo de produtos do mapa de produtos.
+     *
+     * @param nome nome do combo
+     * @param descricao descrição do combo
+     * @param fator fator de promoção do combo
+     */
+    public void editarCombo(String nome, String descricao, double fator){
+        if(Util.isNull(nome) || Util.isEmpty(nome)){
+            throw new IllegalArgumentException("Erro na edicao de combo: nome nao pode ser vazio ou nulo.");
+        }
+        if(Util.isNull(descricao) || Util.isEmpty(descricao)){
+            throw new IllegalArgumentException("Erro na edicao de combo: descricao nao pode ser vazia ou nula.");
+        }
+        if(fator <= 0 || fator >= 1){
+            throw new IllegalArgumentException("Erro na edicao de combo: fator invalido.");
+        }
+
+        if(Util.isNotRegistered(new ProdutoId(nome, descricao), this.produtos)){
+            throw new IllegalArgumentException("Erro na edicao de combo: produto nao existe.");
+        }
+
+        ProdutoComposto produto = (ProdutoComposto) this.produtos.get(new ProdutoId(nome, descricao));
+        produto.setPreco(produto.calculaPreco(fator));
+    }
+
+    /**
      * Remove um produto do mapa de produtos.
      *
      * @param nome nome do produto a ser removido
@@ -289,6 +320,24 @@ public class Fornecedor implements Comparable<Fornecedor>{
         }
 
         this.produtos.remove(id);
+    }
+
+    /**
+
+     * Cadastra uma nova Compra em uma conta de um cliente no fornecedor.
+     * Adiciona um objeto do tipo ProdutoComposto no mapa de produtos.
+
+     * @param cpfCliente cpf do cliente dono da conta
+     * @param data data da compra
+     * @param nomeProduto nome do produto a ser comprado
+     * @param descricaoProduto descrição do produto a ser comprado
+     */
+    public void adicionaCompra(String cpfCliente, String data, String nomeProduto, String descricaoProduto){
+        if(Util.isNotRegistered(cpfCliente, this.contas)){
+            this.contas.put(cpfCliente, new Conta());
+        }
+
+        this.contas.get(cpfCliente).cadastrarCompra(data, nomeProduto, descricaoProduto);
     }
 
     /**
